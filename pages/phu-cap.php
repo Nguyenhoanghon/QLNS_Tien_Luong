@@ -214,7 +214,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                       <!-- /.form-group -->
                       <?php 
                         if($_SESSION['level'] == 1)
-                          echo "<button type='submit' class='btn btn-primary' name='save'><i class='fa fa-plus'></i> Thêm phụ d cấp</button>";
+                          echo "<button type='submit' class='btn btn-primary' name='save'><i class='fa fa-plus'></i> Thêm phụ cấp</button>";
                       ?>
                     </div>
                     <!-- /.col -->

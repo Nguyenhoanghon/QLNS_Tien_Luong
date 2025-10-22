@@ -220,7 +220,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../uploads/images/<?php echo $row_acc['hinh_anh']; ?>" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $row_acc['ten']; ?> <?php echo $row_acc['ho']; ?></span>
+              <span class="hidden-xs"><?php echo $row_acc['ho']; ?> <?php echo $row_acc['ten']; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->

@@ -19,7 +19,8 @@
         </div>
         <div class="pull-left info">
           <p>
-            <?php echo $row_acc['ten']; ?> <?php echo $row_acc['ho']; ?>
+            <?php echo $row_acc['ho']; ?>
+            <?php echo $row_acc['ten']; ?> 
           </p>
           <a href="#"><i class="fa fa-circle text-success"></i>
             <?php 
@@ -93,6 +94,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li class="<?php if(($p == 'salary') && ($a =='advance')) echo 'active'; ?>"><a href="tam-ung.php?p=salary&a=advance"><i class="fa fa-circle-o"></i> Tạm ứng</a></li>
             <li class="<?php if(($p == 'salary') && ($a =='salary')) echo 'active'; ?>"><a href="bang-luong.php?p=salary&a=salary"><i class="fa fa-circle-o"></i> Bảng tính lương</a></li>
             <li class="<?php if(($p == 'salary') && ($a =='calculator')) echo 'active'; ?>"><a href="tinh-luong.php?p=salary&a=calculator"><i class="fa fa-circle-o"></i> Tính lương</a></li>
           </ul>
