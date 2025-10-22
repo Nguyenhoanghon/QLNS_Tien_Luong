@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th10 22, 2025 lúc 03:28 AM
+-- Thời gian đã tạo: Th10 22, 2025 lúc 07:41 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -58,6 +58,38 @@ INSERT INTO `bang_cap` (`id`, `ma_bang_cap`, `ten_bang_cap`, `ghi_chu`, `nguoi_t
 (14, 'MBC1569652469', 'Thạc sĩ khoa học tự nhiên', '', 'Đào Thanh Huy', '2023-09-28 13:34:29', 'Đào Thanh Huy', '2023-09-28 13:34:29'),
 (15, 'MBC1569652475', 'Thạc sĩ quản trị kinh doanh', '', 'Đào Thanh Huy', '2023-09-28 13:34:35', 'Đào Thanh Huy', '2023-09-28 13:34:35'),
 (16, 'MBC1569652481', 'Thạc sĩ kế toán', '', 'Đào Thanh Huy', '2023-09-28 13:34:41', 'Đào Thanh Huy', '2023-09-28 13:56:55');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `cham_cong`
+--
+
+CREATE TABLE `cham_cong` (
+  `id` int(11) NOT NULL,
+  `ma_cham_cong` varchar(50) NOT NULL,
+  `nhanvien_id` int(11) NOT NULL,
+  `thang` int(11) NOT NULL,
+  `nam` int(11) NOT NULL,
+  `so_ngay_cong` int(11) NOT NULL,
+  `so_gio_lam_them` double NOT NULL,
+  `ghi_chu` varchar(255) NOT NULL,
+  `nguoi_tao` varchar(50) NOT NULL,
+  `ngay_tao` datetime NOT NULL,
+  `nguoi_sua` varchar(50) NOT NULL,
+  `ngay_sua` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cham_cong`
+--
+
+INSERT INTO `cham_cong` (`id`, `ma_cham_cong`, `nhanvien_id`, `thang`, `nam`, `so_ngay_cong`, `so_gio_lam_them`, `ghi_chu`, `nguoi_tao`, `ngay_tao`, `nguoi_sua`, `ngay_sua`) VALUES
+(1, 'CC202509-NV002', 2, 9, 2025, 23, 35.5, '<p>Ho&agrave;n th&agrave;nh KPI đ&uacute;ng hạn. C&oacute; l&agrave;m th&ecirc;m 1 ng&agrave;y cuối tuần.</p>\r\n', 'admin', '2025-10-22 15:43:21', 'Nguyễn Hoàng Hôn', '2025-10-22 16:52:53'),
+(2, 'CC202509-NV004', 4, 9, 2025, 21, 5, 'Nghỉ 1 ngày phép trong tháng 9.', 'admin', '2025-10-22 15:43:21', 'admin', '2025-10-22 15:43:21'),
+(3, 'CC202509-NV006', 6, 9, 2025, 22, 12, 'Đúng ngày công chuẩn. Làm thêm giờ buổi tối.', 'admin', '2025-10-22 15:43:21', 'admin', '2025-10-22 15:43:21'),
+(6, 'MCC1761127606', 2, 9, 2025, 26, 12, '', 'Nguyễn Hoàng Hôn', '2025-10-22 17:06:46', 'Nguyễn Hoàng Hôn', '2025-10-22 17:06:46'),
+(7, 'MCC1761127825', 7, 5, 2025, 23, 2.3, '', 'Nguyễn Hoàng Hôn', '2025-10-22 17:10:25', 'Nguyễn Hoàng Hôn', '2025-10-22 17:10:25');
 
 -- --------------------------------------------------------
 
@@ -605,6 +637,15 @@ CREATE TABLE `tam_ung` (
   `ngay_sua` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `tam_ung`
+--
+
+INSERT INTO `tam_ung` (`id`, `ma_tam_ung`, `nhanvien_id`, `ngay_tam_ung`, `so_tien`, `ghi_chu`, `nguoi_tao`, `ngay_tao`, `nguoi_sua`, `ngay_sua`) VALUES
+(2, 'MTU1761117789', 2, '2025-10-11', 1000000, '', 'Nguyễn Hoàng Hôn', '2025-10-22 14:23:09', 'Nguyễn Hoàng Hôn', '2025-10-22 14:23:09'),
+(3, 'MTU1761117829', 3, '2025-10-22', 1000000, '', 'Nguyễn Hoàng Hôn', '2025-10-22 14:23:49', 'Nguyễn Hoàng Hôn', '2025-10-22 14:23:49'),
+(4, 'MTU1761152429', 5, '2025-10-22', 1000000, '', 'Nguyễn Hoàng Hôn', '2025-10-23 00:00:29', 'Nguyễn Hoàng Hôn', '2025-10-23 00:00:29');
+
 -- --------------------------------------------------------
 
 --
@@ -698,6 +739,13 @@ INSERT INTO `trinh_do` (`id`, `ma_trinh_do`, `ten_trinh_do`, `ghi_chu`, `nguoi_t
 --
 ALTER TABLE `bang_cap`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `cham_cong`
+--
+ALTER TABLE `cham_cong`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cham_cong_ibfk_1` (`nhanvien_id`);
 
 --
 -- Chỉ mục cho bảng `chinh_luong`
@@ -848,6 +896,12 @@ ALTER TABLE `bang_cap`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT cho bảng `cham_cong`
+--
+ALTER TABLE `cham_cong`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT cho bảng `chinh_luong`
 --
 ALTER TABLE `chinh_luong`
@@ -947,7 +1001,7 @@ ALTER TABLE `tai_khoan`
 -- AUTO_INCREMENT cho bảng `tam_ung`
 --
 ALTER TABLE `tam_ung`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `tinh_trang_hon_nhan`
@@ -970,6 +1024,12 @@ ALTER TABLE `trinh_do`
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
+
+--
+-- Các ràng buộc cho bảng `cham_cong`
+--
+ALTER TABLE `cham_cong`
+  ADD CONSTRAINT `cham_cong_ibfk_1` FOREIGN KEY (`nhanvien_id`) REFERENCES `nhanvien` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Các ràng buộc cho bảng `chinh_luong`
