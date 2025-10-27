@@ -51,90 +51,91 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
 
 ?>
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <form method="POST">
-          <div class="modal-header">
-            <span style="font-size: 18px;">Thông báo</span>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <input type="hidden" name="maLuong">
-            Bạn có thực sự muốn xóa record lương này?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-            <button type="submit" class="btn btn-primary" name="delete">Xóa</button>
-          </div>
-        </form>
-      </div>
+        <div class="modal-content">
+            <form method="POST">
+                <div class="modal-header">
+                    <span style="font-size: 18px;">Thông báo</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="maLuong">
+                    Bạn có thực sự muốn xóa record lương này?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="submit" class="btn btn-primary" name="delete">Xóa</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-       Tính lương nhân viên
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="index.php?p=index&a=statistic"><i class="fa fa-dashboard"></i> Tổng quan</a></li>
-        <li><a href="bang-luong.php?p=salary&a=salary">Bảng lương</a></li>
-        <li class="active">Tính lương nhân viên</li>
-      </ol>
+        <h1>
+            Tính lương nhân viên
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="index.php?p=index&a=statistic"><i class="fa fa-dashboard"></i> Tổng quan</a></li>
+            <li><a href="bang-luong.php?p=salary&a=salary">Bảng lương</a></li>
+            <li class="active">Tính lương nhân viên</li>
+        </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>SAL</h3>
-              <p>Tính lương</p>
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>SAL</h3>
+                        <p>Tính lương</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <a href="tinh-luong.php?p=salary&a=salary" class="small-box-footer">
+                        Nhấn vào để tính lương <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
             </div>
-            <div class="icon">
-              <i class="fa fa-money"></i>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>EXCEL</h3>
+                        <p>Xuất Excel</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-file"></i>
+                    </div>
+                    <a href="export-bang-luong.php" class="small-box-footer">
+                        Nhấn vào xuất file excel <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
             </div>
-            <a href="tinh-luong.php?p=salary&a=salary" class="small-box-footer">
-              Nhấn vào để tính lương <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
+            <!-- ./col -->
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>EXCEL</h3>
-              <p>Xuất Excel</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-file"></i>
-            </div>
-            <a href="export-bang-luong.php" class="small-box-footer">
-              Nhấn vào xuất file excel <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
-      <!-- row -->
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Bảng lương</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <?php 
+        <!-- row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Bảng lương</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <?php 
                 // show error
                 if($row_acc['quyen'] != 1) 
                 {
@@ -145,7 +146,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                 }
               ?>
 
-              <?php 
+                        <?php 
                 // show error
                 if(isset($error)) 
                 {
@@ -162,7 +163,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                   }
                 }
               ?>
-              <?php 
+                        <?php 
                 // show success
                 if(isset($success)) 
                 {
@@ -178,41 +179,42 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                   }
                 }
               ?>
-              <div class="table-responsive">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>Mã lương</th>
-                    <th>Tên nhân viên</th>
-                    <th>Chức vụ</th>
-                    <th>Lương cơ bản</th>
-                    <th>Ngày công</th>
-                    <th>Thực lãnh</th>
-                    <th>Ngày chấm</th>
-                    <th>Chi tiết</th>
-                    <th>Xóa</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <?php 
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã lương</th>
+                                        <th>Tên nhân viên</th>
+                                        <th>Chức vụ</th>
+                                        <th>Lương cơ bản</th>
+                                        <th>Ngày công</th>
+                                        <th>Thực lãnh</th>
+                                        <th>Ngày chấm</th>
+                                        <th>Chi tiết</th>
+                                        <th>Xóa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
                     $count = 1;
                     foreach ($arrShow as $arrS) 
                     {
                   ?>
-                      <tr>
-                        <td><?php echo $count; ?></td>
-                        <td><?php echo $arrS['ma_luong']; ?></td>
-                        <td><?php echo $arrS['ten_nv']; ?></td>
-                        <td><?php echo $arrS['ten_chuc_vu']; ?></td>
-                        <td><?php echo number_format($arrS['luong_thang'])."vnđ"; ?></td>
-                        <td class="text-center"><?php echo $arrS['ngay_cong']; ?></td>
-                        <td style="color: blue; font-weight: bold;"><?php echo number_format($arrS['thuc_lanh'])."vnđ"; ?></td>
-                        <td class="text-center">
-                        <?php echo date_format(date_create($arrS['ngay_cham']), "d-m-Y"); ?>
-                        </td>
-                        <td>
-                          <?php 
+                                    <tr>
+                                        <td><?php echo $count; ?></td>
+                                        <td><?php echo $arrS['ma_luong']; ?></td>
+                                        <td><?php echo $arrS['ten_nv']; ?></td>
+                                        <td><?php echo $arrS['ten_chuc_vu']; ?></td>
+                                        <td><?php echo number_format($arrS['luong_thang'])."vnđ"; ?></td>
+                                        <td class="text-center"><?php echo $arrS['ngay_cong']; ?></td>
+                                        <td style="color: blue; font-weight: bold;">
+                                            <?php echo number_format($arrS['thuc_lanh'])."vnđ"; ?></td>
+                                        <td class="text-center">
+                                            <?php echo date_format(date_create($arrS['ngay_cham']), "d-m-Y"); ?>
+                                        </td>
+                                        <td>
+                                            <?php 
                             if($row_acc['quyen'] == 1)
                             {
                               echo "<form method='POST'>";
@@ -225,10 +227,10 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                               echo "<button type='button' class='btn btn-primary btn-flat' disabled><i class='fa fa-eye'></i></button>";
                             }
                           ?>
-                          
-                        </td>
-                        <td>
-                          <?php 
+
+                                        </td>
+                                        <td>
+                                            <?php 
                             if($row_acc['quyen'] == 1)
                             {
                               echo "<button type='button' class='btn bg-maroon btn-flat' data-toggle='modal' data-target='#exampleModal' data-whatever='".$arrS['ma_luong']."'><i class='fa fa-trash'></i></button>";
@@ -238,26 +240,26 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                               echo "<button type='button' class='btn bg-maroon btn-flat' disabled><i class='fa fa-trash'></i></button>";
                             }
                           ?>
-                        </td>
-                      </tr>
-                  <?php
+                                        </td>
+                                    </tr>
+                                    <?php
                       $count++;
                     }
                   ?>
-                  </tbody>
-                </table>
-              </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
             </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+            <!-- /.col -->
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+        <!-- /.row -->
     </section>
     <!-- /.content -->
-  </div>
+</div>
 
 <?php
   // include

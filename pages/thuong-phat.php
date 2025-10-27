@@ -83,149 +83,151 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
     }
 
   ?>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form method="POST">
-            <div class="modal-header">
-              <span style="font-size: 18px;">Thông báo</span>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" name="idReward">
-              Bạn có thực sự muốn xóa thưởng phạt này?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-              <button type="submit" class="btn btn-primary" name="delete">Xóa</button>
-            </div>
-          </form>
+            <form method="POST">
+                <div class="modal-header">
+                    <span style="font-size: 18px;">Thông báo</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="idReward">
+                    Bạn có thực sự muốn xóa thưởng phạt này?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="submit" class="btn btn-primary" name="delete">Xóa</button>
+                </div>
+            </form>
         </div>
-      </div>
     </div>
+</div>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
         <h1>
-          Thưởng phạt
+            Thưởng phạt
         </h1>
         <ol class="breadcrumb">
-          <li><a href="index.php?p=index&a=statistic"><i class="fa fa-dashboard"></i> Tổng quan</a></li>
-          <li><a href="thuong-phat.php?p=staff&a=reward">Thưởng phạt</a></li>
-          <li class="active">Thêm thưởng phạt</li>
+            <li><a href="index.php?p=index&a=statistic"><i class="fa fa-dashboard"></i> Tổng quan</a></li>
+            <li><a href="thuong-phat.php?p=staff&a=reward">Thưởng phạt</a></li>
+            <li class="active">Thêm thưởng phạt</li>
         </ol>
-      </section>
+    </section>
 
-      <!-- Main content -->
-      <section class="content">
+    <!-- Main content -->
+    <section class="content">
         <div class="row">
-          <div class="col-xs-12">
-            <div class="box">
-              <div class="box-header">
-                <h3 class="box-title">Danh sách thưởng phạt</h3>
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body">
-                <div class="table-responsive">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                      <th>STT</th>
-                      <th>Mã thưởng phạt</th>
-                      <th>Nhân viên</th>
-                      <th>Ngày thưởng phạt</th>
-                      <th>Loại</th>
-                      <th>Số tiền</th>
-                      <th>Mô tả</th>
-                      <th>Người tạo</th>
-                      <th>Ngày tạo</th>
-                      <th>Người sửa</th>
-                      <th>Ngày sửa</th>
-                      <th>Sửa</th>
-                      <th>Xóa</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                      $count = 1;
-                      foreach ($arrShow as $arrS) 
-                      {
-                    ?>
-                        <tr>
-                          <td><?php echo $count; ?></td>
-                          <td><?php echo $arrS['ma_thuong_phat']; ?></td>
-                          <td>
-                            <?php 
-                              $queryEmployee = "SELECT ten_nv FROM nhanvien WHERE id = ".$arrS['nhanvien_id'];
-                              $resultEmployee = mysqli_query($conn, $queryEmployee);
-                              $rowEmployee = mysqli_fetch_array($resultEmployee);
-                              echo $rowEmployee['ten_nv'];
-                            ?>
-                          </td>
-                          <td><?php echo $arrS['ngay_thuong_phat']; ?></td>
-                          <td><?php echo $arrS['loai_thuong_phat']; ?></td>
-                          <td><?php echo number_format($arrS['so_tien']). "vnđ"; ?></td>
-                          <td><?php echo $arrS['ghi_chu']; ?></td>
-                          <td><?php echo $arrS['nguoi_tao']; ?></td>
-                          <td><?php echo $arrS['ngay_tao']; ?></td>
-                          <td><?php echo $arrS['nguoi_sua']; ?></td>
-                          <td><?php echo $arrS['ngay_sua']; ?></td>
-                          <th>
-                            <?php 
-                              if($row_acc['quyen'] == 1)
-                              {
-                                echo "<form method='POST'>";
-                                echo "<input type='hidden' value='".$arrS['id']."' name='idReward'/>";
-                                echo "<button type='submit' class='btn bg-orange btn-flat'  name='edit'><i class='fa fa-edit'></i></button>";
-                                echo "</form>";
-                              }
-                              else
-                              {
-                                echo "<button type='button' class='btn bg-orange btn-flat' disabled><i class='fa fa-edit'></i></button>";
-                              }
-                            ?>
-                            
-                          </th>
-                          <th>
-                            <?php 
-                              if($row_acc['quyen'] == 1)
-                              {
-                                echo "<button type='button' class='btn bg-maroon btn-flat' data-toggle='modal' data-target='#exampleModal' data-whatever='".$arrS['id']."'><i class='fa fa-trash'></i></button>";
-                              }
-                              else
-                              {
-                                echo "<button type='button' class='btn bg-maroon btn-flat' disabled><i class='fa fa-trash'></i></button>";
-                              }
-                            ?>
-                          </th>
-                        </tr>
-                    <?php
-                        $count++;
-                      }
-                    ?>
-                    </tbody>
-                  </table>
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Danh sách thưởng phạt</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã thưởng phạt</th>
+                                        <th>Nhân viên</th>
+                                        <th>Ngày thưởng phạt</th>
+                                        <th>Loại</th>
+                                        <th>Số tiền</th>
+                                        <th>Mô tả</th>
+                                        <th>Người tạo</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Người sửa</th>
+                                        <th>Ngày sửa</th>
+                                        <th>Sửa</th>
+                                        <th>Xóa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                      $count = 1;
+                                      foreach ($arrShow as $arrS) 
+                                        {
+                                      ?>
+                                    <tr>
+                                        <td><?php echo $count; ?></td>
+                                        <td><?php echo $arrS['ma_thuong_phat']; ?></td>
+                                        <td>
+                                            <?php 
+                                                $queryEmployee = "SELECT ten_nv FROM nhanvien WHERE id = ".$arrS['nhanvien_id'];
+                                                $resultEmployee = mysqli_query($conn, $queryEmployee);
+                                                $rowEmployee = mysqli_fetch_array($resultEmployee);
+                                                echo $rowEmployee['ten_nv'];
+                                              ?>
+                                        </td>
+                                        <td><?php echo $arrS['ngay_thuong_phat']; ?></td>
+                                        <td><?php echo $arrS['loai_thuong_phat']; ?></td>
+                                        <td><?php echo number_format($arrS['so_tien']). "vnđ"; ?></td>
+                                        <td><?php echo $arrS['ghi_chu']; ?></td>
+                                        <td><?php echo $arrS['nguoi_tao']; ?></td>
+                                        <td><?php echo $arrS['ngay_tao']; ?></td>
+                                        <td><?php echo $arrS['nguoi_sua']; ?></td>
+                                        <td><?php echo $arrS['ngay_sua']; ?></td>
+                                        <th>
+                                            <?php 
+                                                if($row_acc['quyen'] == 1)
+                                                {
+                                                  echo "<form method='POST'>";
+                                                  echo "<input type='hidden' value='".$arrS['id']."' name='idReward'/>";
+                                                  echo "<button type='submit' class='btn bg-orange btn-flat'  name='edit'><i class='fa fa-edit'></i></button>";
+                                                  echo "</form>";
+                                                }
+                                                else
+                                                {
+                                                  echo "<button type='button' class='btn bg-orange btn-flat' disabled><i class='fa fa-edit'></i></button>";
+                                                }
+                                              ?>
+                                        </th>
+                                        <th>
+                                            <?php 
+                                                if($row_acc['quyen'] == 1)
+                                                {
+                                                  echo "<button type='button' class='btn bg-maroon btn-flat' data-toggle='modal' data-target='#exampleModal' data-whatever='".$arrS['id']."'><i class='fa fa-trash'></i></button>";
+                                                }
+                                                else
+                                                {
+                                                  echo "<button type='button' class='btn bg-maroon btn-flat' disabled><i class='fa fa-trash'></i></button>";
+                                                }
+                                              ?>
+                                        </th>
+                                    </tr>
+                                    <?php
+                                        $count++;
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
                 </div>
-              </div>
-              <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-            <div class="box box-primary">
-              <div class="box-header with-border">
-                <h3 class="box-title">Thêm thưởng phạt</h3>
-                <div class="box-tools pull-right">
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i class='fa fa-remove'></i></button>
-                </div>
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body">
-                <?php 
+                <!-- /.box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Thêm thưởng phạt</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                    class='fa fa-remove'></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <?php 
                   // show error
                   if($row_acc['quyen'] != 1) 
                   {
@@ -236,7 +238,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                   }
                 ?>
 
-                <?php 
+                        <?php 
                   // show error
                   if(isset($error)) 
                   {
@@ -253,7 +255,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                     }
                   }
                 ?>
-                <?php 
+                        <?php 
                   // show success
                   if(isset($success)) 
                   {
@@ -269,77 +271,83 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                     }
                   }
                 ?>
-                <form action="" method="POST">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Mã thưởng phạt: </label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" name="rewardCode" value="<?php echo $rewardCode; ?>" readonly>
-                      </div>
-                      <div class="form-group">
-                        <label for="employeeId">Nhân viên: </label>
-                        <select class="form-control" id="employeeId" name="employeeId">
-                          <option value="">-- Chọn nhân viên --</option>
-                          <?php
+                        <form action="" method="POST">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Mã thưởng phạt: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                            name="rewardCode" value="<?php echo $rewardCode; ?>" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="employeeId">Nhân viên: </label>
+                                        <select class="form-control" id="employeeId" name="employeeId">
+                                            <option value="">-- Chọn nhân viên --</option>
+                                            <?php
                           $queryEmployee = "SELECT id, ma_nv, ten_nv FROM nhanvien";
                           $resultEmployee = mysqli_query($conn, $queryEmployee);
                           while ($rowEmployee = mysqli_fetch_array($resultEmployee)) {
                             echo "<option value='".$rowEmployee['id']."'>".$rowEmployee['ma_nv']." - ".$rowEmployee['ten_nv']."</option>";
                           }
                           ?>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Ngày thưởng phạt: </label>
-                        <input type="date" class="form-control" id="exampleInputEmail1" name="rewardDate">
-                      </div>
-                      <div class="form-group">
-                        <label for="rewardType">Loại thưởng phạt: </label>
-                        <select class="form-control" id="rewardType" name="rewardType">
-                          <option value="">-- Chọn loại --</option>
-                          <option value="Thưởng">Thưởng</option>
-                          <option value="Phạt">Phạt</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Số tiền: </label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nhập số tiền" name="amount">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Mô tả: </label>
-                        <textarea id="editor1" rows="10" cols="80" name="description">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Ngày thưởng phạt: </label>
+                                        <input type="date" class="form-control" id="exampleInputEmail1"
+                                            name="rewardDate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rewardType">Loại thưởng phạt: </label>
+                                        <select class="form-control" id="rewardType" name="rewardType">
+                                            <option value="">-- Chọn loại --</option>
+                                            <option value="Thưởng">Thưởng</option>
+                                            <option value="Phạt">Phạt</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Số tiền: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                            placeholder="Nhập số tiền" name="amount">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Mô tả: </label>
+                                        <textarea id="editor1" rows="10" cols="80" name="description">
                         </textarea>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Người tạo: </label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" value="<?php echo $row_acc['ho']; ?> <?php echo $row_acc['ten']; ?>" name="personCreate" readonly>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Ngày tạo: </label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" value="<?php echo date('d-m-Y H:i:s'); ?>" name="dateCreate" readonly>
-                      </div>
-                      <!-- /.form-group -->
-                      <?php 
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Người tạo: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                            value="<?php echo $row_acc['ho']; ?> <?php echo $row_acc['ten']; ?>"
+                                            name="personCreate" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Ngày tạo: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                            value="<?php echo date('d-m-Y H:i:s'); ?>" name="dateCreate" readonly>
+                                    </div>
+                                    <!-- /.form-group -->
+                                    <?php 
                         if($_SESSION['level'] == 1)
                           echo "<button type='submit' class='btn btn-primary' name='save'><i class='fa fa-plus'></i> Thêm thưởng phạt</button>";
                       ?>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </form>
                     </div>
-                    <!-- /.col -->
-                  </div>
-                  <!-- /.row -->
-                </form>
-              </div>
-              <!-- /.box-body -->
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
             </div>
-            <!-- /.box -->
-            
-          </div>
-          <!-- /.col -->
+            <!-- /.col -->
         </div>
         <!-- /.row -->
-      </section>
-      <!-- /.content -->
-    </div>
+    </section>
+    <!-- /.content -->
+</div>
 
 <?php
   // include
