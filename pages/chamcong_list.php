@@ -17,7 +17,10 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
     }
 
     // show data
-    $showData = "SELECT id, ma_cham_cong, nhanvien_id, thang, nam, so_ngay_cong, so_gio_lam_them, ghi_chu, nguoi_tao, ngay_tao, nguoi_sua, ngay_sua FROM cham_cong ORDER BY ngay_tao DESC";
+    $showData = "SELECT cc.id, cc.ma_cham_cong, cc.nhanvien_id, nv.ten_nv AS ten_nhan_vien, cc.thang, cc.nam, cc.so_ngay_cong, cc.so_gio_lam_them, cc.ghi_chu, cc.nguoi_tao, cc.ngay_tao, cc.nguoi_sua, cc.ngay_sua 
+           FROM cham_cong cc 
+           JOIN nhanvien nv ON cc.nhanvien_id = nv.id 
+           ORDER BY cc.ngay_tao DESC";
     $result = mysqli_query($conn, $showData);
     $arrShow = array();
     while ($row = mysqli_fetch_array($result)) {
@@ -80,91 +83,95 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
     
   // Khởi tạo bảng chấm công
   if (isset($_POST['khoitao'])) {
-  // Nhận dữ liệu từ form
-  $thang = intval($_POST['thang']);
-  $nam = intval($_POST['nam']);
-  $nguoi_tao = $row_acc['ho'] . ' ' . $row_acc['ten'];
+    // Nhận dữ liệu từ form
+    $thang = intval($_POST['thang']);
+    $nam = intval($_POST['nam']);
+    $nguoi_tao = $row_acc['ho'] . ' ' . $row_acc['ten'];
 
-  // ====== BƯỚC 1: KIỂM TRA DỮ LIỆU TỒN TẠI ======
-  $check_sql = "SELECT COUNT(*) AS total FROM cham_cong WHERE thang = $thang AND nam = $nam";
-  $result = $conn->query($check_sql);
-  $row = $result->fetch_assoc();
+    // ====== BƯỚC 1: KIỂM TRA DỮ LIỆU TỒN TẠI ======
+    $check_sql = "SELECT COUNT(*) AS total FROM cham_cong WHERE thang = $thang AND nam = $nam";
+    $result = $conn->query($check_sql);
+    $row = $result->fetch_assoc();
 
-  if ($row['total'] > 0) {
-    // Nếu đã có dữ liệu => báo lỗi và dừng
-    echo "
-    <div style='font-family: Arial; text-align:center; margin-top:50px;'>
-      <h3 style='color:red;'>⚠️ Dữ liệu chấm công tháng $thang / $nam đã tồn tại!</h3>
-      <p>Vui lòng kiểm tra lại trước khi khởi tạo mới.</p>
-    </div>";
-    echo '<script>setTimeout("window.location=\'chamcong_list.php?p=staff&a=chamcong\'",3000);</script>';
-   /* $conn->close();
-     exit; */
-  }
-  else
-  {
-  // ====== BƯỚC 2: THỰC HIỆN KHỞI TẠO CHẤM CÔNG ======
-    $sql = "
-    SET @THANG = $thang;
-    SET @NAM = $nam;
-    SET @rownum = 0;
-
-    INSERT INTO cham_cong 
-    (`ma_cham_cong`, `nhanvien_id`, `thang`, `nam`, `so_ngay_cong`, `so_gio_lam_them`, 
-    `ghi_chu`, `nguoi_tao`, `ngay_tao`, `nguoi_sua`, `ngay_sua`)
-    SELECT 
-      CONCAT('CC',
-      LPAD(@THANG, 2, '0'),
-      LPAD(@NAM % 100, 2, '0'),
-      LPAD(@rownum := @rownum + 1, 3, '0')
-      ) AS ma_cham_cong,
-      nv.id AS nhanvien_id,
-      @THANG AS thang,
-      @NAM AS nam,
-      0 AS so_ngay_cong,
-      0 AS so_gio_lam_them,
-      '' AS ghi_chu,
-      '$nguoi_tao' AS nguoi_tao,
-      NOW() AS ngay_tao,
-      '$nguoi_tao' AS nguoi_sua,
-      NOW() AS ngay_sua
-    FROM nhanvien nv
-    WHERE nv.trang_thai = 1
-    ORDER BY nv.id;
-    ";
-
-  // ====== BƯỚC 3: THỰC THI ======
-    if ($conn->multi_query($sql)) {
-      do {
-        if ($result = $conn->store_result()) {
-          $result->free();
-        }
-      } while ($conn->more_results() && $conn->next_result());
-
+    if ($row['total'] > 0) {
+      // Nếu đã có dữ liệu => báo lỗi và dừng
       echo "
       <div style='font-family: Arial; text-align:center; margin-top:50px;'>
-        <h3 style='color:green;'>✅ Đã tạo bảng lương tháng $thang / $nam thành công!</h3>
-      </div>";;
+        <h3 style='color:red;'>⚠️ Dữ liệu chấm công tháng $thang / $nam đã tồn tại!</h3>
+        <p>Vui lòng kiểm tra lại trước khi khởi tạo mới.</p>
+      </div>";
       echo '<script>setTimeout("window.location=\'chamcong_list.php?p=staff&a=chamcong\'",3000);</script>';
-    }else {
-        echo "
-            <div style='font-family: Arial; text-align:center; margin-top:50px;'>
-              <h3 style='color:red;'>❌ Lỗi khi khởi tạo: " . $conn->error . "</h3>
-              <a href='index.php' style='margin-top:20px; display:inline-block; text-decoration:none; background:#6c757d; color:#fff; padding:10px 20px; border-radius:5px;'>Thử lại</a>
-            </div>";
-        echo '<script>setTimeout("window.location=\'chamcong_list.php?p=staff&a=chamcong\'",1000);</script>';
+    /* $conn->close();
+      exit; */
     }
-  }
+    else
+    {
+    // ====== BƯỚC 2: THỰC HIỆN KHỞI TẠO CHẤM CÔNG ======
+      $sql = "
+      SET @THANG = $thang;
+      SET @NAM = $nam;
+      SET @rownum = 0;
+
+      INSERT INTO cham_cong 
+      (`ma_cham_cong`, `nhanvien_id`, `thang`, `nam`, `so_ngay_cong`, `so_gio_lam_them`, 
+      `ghi_chu`, `nguoi_tao`, `ngay_tao`, `nguoi_sua`, `ngay_sua`)
+      SELECT 
+        CONCAT('CC',
+        LPAD(@THANG, 2, '0'),
+        LPAD(@NAM % 100, 2, '0'),
+        LPAD(@rownum := @rownum + 1, 3, '0')
+        ) AS ma_cham_cong,
+        nv.id AS nhanvien_id,
+        @THANG AS thang,
+        @NAM AS nam,
+        0 AS so_ngay_cong,
+        0 AS so_gio_lam_them,
+        '' AS ghi_chu,
+        '$nguoi_tao' AS nguoi_tao,
+        NOW() AS ngay_tao,
+        '$nguoi_tao' AS nguoi_sua,
+        NOW() AS ngay_sua
+      FROM nhanvien nv
+      WHERE nv.trang_thai = 1 AND nv.loai_nv_id = 2
+      ORDER BY nv.id;
+      ";
+
+    // ====== BƯỚC 3: THỰC THI ======
+      if ($conn->multi_query($sql)) {
+        do {
+          if ($result = $conn->store_result()) {
+            $result->free();
+          }
+        } while ($conn->more_results() && $conn->next_result());
+
+        echo "
+        <div style='font-family: Arial; text-align:center; margin-top:50px;'>
+          <h3 style='color:green;'>✅ Đã tạo bảng lương tháng $thang / $nam thành công!</h3>
+        </div>";;
+        echo '<script>setTimeout("window.location=\'chamcong_list.php?p=staff&a=chamcong\'",3000);</script>';
+      }else {
+          echo "
+              <div style='font-family: Arial; text-align:center; margin-top:50px;'>
+                <h3 style='color:red;'>❌ Lỗi khi khởi tạo: " . $conn->error . "</h3>
+                <a href='index.php' style='margin-top:20px; display:inline-block; text-decoration:none; background:#6c757d; color:#fff; padding:10px 20px; border-radius:5px;'>Thử lại</a>
+              </div>";
+          echo '<script>setTimeout("window.location=\'chamcong_list.php?p=staff&a=chamcong\'",1000);</script>';
+      }
+    }
 }
 //Dữ liệu cho bộ lọc
   if (isset($_GET['loc'])) {
-  // ====== BƯỚC 4: HIỂN THỊ DỮ LIỆU THEO BỘ LỌC ======
-  // Lấy giá trị tháng và năm từ form lọc (nếu có)
+    // ====== BƯỚC 4: HIỂN THỊ DỮ LIỆU THEO BỘ LỌC ======
+    // Lấy giá trị tháng và năm từ form lọc (nếu có)
     $thang_filter = isset($_GET['thang']) ? $_GET['thang'] : date('n');
     $nam_filter   = isset($_GET['nam']) ? $_GET['nam'] : date('Y');
 
     // Lấy dữ liệu theo bộ lọc
-    $sql = "SELECT * FROM cham_cong WHERE thang = '$thang_filter' AND nam = '$nam_filter' ORDER BY id ASC";
+    $sql = "SELECT cc.*, nv.ten_nv AS ten_nhan_vien 
+        FROM cham_cong cc 
+        JOIN nhanvien nv ON cc.nhanvien_id = nv.id 
+        WHERE cc.thang = '$thang_filter' AND cc.nam = '$nam_filter' 
+        ORDER BY cc.id ASC";
     $query = mysqli_query($conn, $sql);
     $arrShow = [];
     while ($row = mysqli_fetch_assoc($query)) {
@@ -386,7 +393,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-primary" name="loc">Xem</button>
+                            <button type="submit" class="btn btn-primary" name="loc">Xem bảng chấm công</button>
 
                             <a href="chamcong_list.php" class="btn btn-secondary" style="float: right;">
                                 <i class="fa fa-refresh"></i> Làm mới
@@ -425,14 +432,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                                     <tr>
                                         <td><?php echo $count; ?></td>
                                         <td><?php echo $arrS['ma_cham_cong']; ?></td>
-                                        <td>
-                                            <?php 
-                                              $queryEmployee = "SELECT ten_nv FROM nhanvien WHERE id = ".$arrS['nhanvien_id'];
-                                              $resultEmployee = mysqli_query($conn, $queryEmployee);
-                                              $rowEmployee = mysqli_fetch_array($resultEmployee);
-                                              echo $rowEmployee['ten_nv'];
-                                            ?>
-                                        </td>
+                                        <td><?php echo $arrS['ten_nhan_vien']; ?></td>
                                         <td><?php echo $arrS['thang']; ?></td>
                                         <td><?php echo $arrS['nam']; ?></td>
                                         <td><?php echo $arrS['so_ngay_cong']; ?></td>

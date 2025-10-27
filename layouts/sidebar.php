@@ -115,20 +115,25 @@
                 <ul class="treeview-menu">
                     <li class="<?php if(($p == 'salary') && ($a =='advance')) echo 'active'; ?>"><a
                             href="tam-ung.php?p=salary&a=advance"><i class="fa fa-circle-o"></i> Tạm ứng</a></li>
-                    <li class="<?php if(($p == 'salary') && ($a =='thuongphat')) echo 'active'; ?>"><a
-                            href="thuong-phat.php?p=salary&a=thuongphat"><i class="fa fa-circle-o"></i> Thưởng phạt</a>
-                    </li>
+
                     <li class="<?php if(($p == 'salary') && ($a =='chamcong')) echo 'active'; ?>"><a
                             href="chamcong_list.php?p=salary&a=chamcong"><i class="fa fa-circle-o"></i> Chấm công </a>
                     </li>
+                    <li class="<?php if(($p == 'salary') && ($a =='tinh_luong_nvvp')) echo 'active'; ?>"><a
+                            href="tinh_luong_nvvp.php?p=salary&a=tinh_luong_nvvp"><i class="fa fa-circle-o"></i> Tính
+                            luong NV van phòng
+                        </a></li>
                     <li class="<?php if(($p == 'salary') && ($a =='luongvp')) echo 'active'; ?>"><a
-                            href="luong-vp.php?p=salary&a=luongvp"><i class="fa fa-circle-o"></i> Lương NV văn phòng
+                            href="luong-vp.php?p=salary&a=luongvp"><i class="fa fa-circle-o"></i> Lương văn phòng V2
                         </a></li>
                     <li class="<?php if(($p == 'salary') && ($a =='salary')) echo 'active'; ?>"><a
                             href="bang-luong.php?p=salary&a=salary"><i class="fa fa-circle-o"></i> Bảng tính lương</a>
                     </li>
                     <li class="<?php if(($p == 'salary') && ($a =='calculator')) echo 'active'; ?>"><a
                             href="tinh-luong.php?p=salary&a=calculator"><i class="fa fa-circle-o"></i> Tính lương</a>
+                    </li>
+                    <li class="<?php if(($p == 'salary') && ($a =='thuongphat')) echo 'active'; ?>"><a
+                            href="thuong-phat.php?p=salary&a=thuongphat"><i class="fa fa-circle-o"></i> Thưởng phạt</a>
                     </li>
                 </ul>
             </li>
