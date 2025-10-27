@@ -506,6 +506,10 @@ if(isset($_SESSION['username']) && isset($_SESSION['level']))
                             </div>
                             <button type="submit" class="btn btn-primary" name="loc">Xem bảng lương</button>
                             <button type="submit" class="btn btn-primary" name="update">Cập nhật bảng lương</button>
+                            <a href="export_bang_luong_thang.php" class="btn btn-success"
+                                style="float: right; margin-left: 10px;">
+                                <i class="fa fa-file-excel-o"></i> Xuất file Excel
+                            </a>
                             <a href="tinh_luong_nvvp.php" class="btn btn-secondary" style="float: right;">
                                 <i class="fa fa-refresh"></i> Làm mới
                             </a>

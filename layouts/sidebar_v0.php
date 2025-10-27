@@ -104,11 +104,10 @@
                             nhân viên</a></li>
                 </ul>
             </li>
-            <!--Quản lý lương VP -->
             <li class="<?php if($p == 'salary') echo 'active'; ?> treeview">
                 <a href="#">
                     <i class="fa fa-money"></i>
-                    <span>Quản lý lương VP</span>
+                    <span>Quản lý lương</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -122,7 +121,7 @@
                     </li>
                     <li class="<?php if(($p == 'salary') && ($a =='tinh_luong_nvvp')) echo 'active'; ?>"><a
                             href="tinh_luong_nvvp.php?p=salary&a=tinh_luong_nvvp"><i class="fa fa-circle-o"></i> Tính
-                            lương NV Văn phòng
+                            luong NV van phòng
                         </a></li>
                     <li class="<?php if(($p == 'salary') && ($a =='luongvp')) echo 'active'; ?>"><a
                             href="luong-vp.php?p=salary&a=luongvp"><i class="fa fa-circle-o"></i> Lương văn phòng V2
@@ -139,35 +138,6 @@
                     </li>
                 </ul>
             </li>
-            <!--./Quản lý lương VP-->
-
-            <!--Quản lý lương thời vụ -->
-            <li class="<?php if($p == 'salary') echo 'active'; ?> treeview">
-                <a href="#">
-                    <i class="fa fa-money"></i>
-                    <span>Quản lý lương thời vụ</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="<?php if(($p == 'salary') && ($a =='chamcong')) echo 'active'; ?>"><a
-                            href="chamcong_list.php?p=salary&a=chamcong"><i class="fa fa-circle-o"></i> Chấm công </a>
-                    </li>
-                    <li class="<?php if(($p == 'salary') && ($a =='tinh_luong_nvvp')) echo 'active'; ?>"><a
-                            href="tinh_luong_nvvp.php?p=salary&a=tinh_luong_nvvp"><i class="fa fa-circle-o"></i> Tính
-                            lương NV thời vụ
-                        </a></li>
-                    <li class="<?php if(($p == 'salary') && ($a =='salary')) echo 'active'; ?>"><a
-                            href="bang-luong.php?p=salary&a=salary"><i class="fa fa-circle-o"></i> Bảng tính lương</a>
-                    </li>
-                    <li class="<?php if(($p == 'salary') && ($a =='calculator')) echo 'active'; ?>"><a
-                            href="tinh-luong.php?p=salary&a=calculator"><i class="fa fa-circle-o"></i> Tính lương</a>
-                    </li>
-                </ul>
-            </li>
-            <!--./Quản lý lương thời vụ-->
-
             <!-- 
         <li class="<?php #nhh if($p == 'collaborate') echo 'active'; ?> treeview">
           <a href="#">
@@ -194,6 +164,40 @@
           </a>
         </li>
         -->
+
+            <li class="<?php if($p == 'group') echo 'active'; ?> treeview">
+                <a href="#">
+                    <i class="fa fa-users"></i> <span>Nhóm nhân viên</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?php if(($p == 'group') && ($a =='add-group')) echo 'active'; ?>"><a
+                            href="tao-nhom.php?p=group&a=add-group"><i class="fa fa-circle-o"></i> Tạo nhóm</a></li>
+                    <li class="<?php if(($p == 'group') && ($a =='list-group')) echo 'active'; ?>"><a
+                            href="danh-sach-nhom.php?p=group&a=list-group"><i class="fa fa-circle-o"></i> Danh sách
+                            nhóm</a></li>
+                </ul>
+            </li>
+
+            <li class="<?php if($p == 'bonus-discipline') echo 'active'; ?> treeview">
+                <a href="#">
+                    <i class="fa fa-star"></i> <span>Khen thưởng - Kỷ luật</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?php if(($p == 'bonus-discipline') && ($a =='bonus')) echo 'active'; ?>"><a
+                            href="khen-thuong.php?p=bonus-discipline&a=bonus"><i class="fa fa-circle-o"></i>Khen
+                            thưởng</a></li>
+                    <li class="<?php if(($p == 'bonus-discipline') && ($a =='discipline')) echo 'active'; ?>"><a
+                            href="ky-luat.php?p=bonus-discipline&a=discipline"><i class="fa fa-circle-o"></i> Kỷ
+                            luật</a></li>
+                </ul>
+            </li>
+
             <!--
         <li>
           <a href="pages/calendar.html">
